@@ -51,6 +51,7 @@ class ProductCrudController extends CrudController
 //        ]);
         CRUD::column('category_id')->type('select')->model('App\Models\Category')->attribute('name');;
         CRUD::column('name');
+        CRUD::column('image')->type('image');
         CRUD::column('color');
         CRUD::column('size');
         CRUD::column('price');
@@ -60,6 +61,25 @@ class ProductCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
+    }
+
+    protected function setupShowOperation(){
+        /*  $this->crud->addColumn([
+              'name' => 'title', // The db column name
+              'label' => "Title", // Table column heading
+              'visibleInShow'   => false,
+          ]);*/
+        $this->crud->addColumn([
+            'name' => 'image', // The db column name
+            'label' => "Image", // Table column heading
+            'type' => 'image',
+            // 'prefix' => 'folder/subfolder/',
+            // image from a different disk (like s3 bucket)
+            // 'disk' => 'disk-name',
+            // optional width/height if 25px is not ok with you
+            'height' => '200px',
+            'width' => '200px',
+        ]);
     }
 
     /**
@@ -73,6 +93,7 @@ class ProductCrudController extends CrudController
         CRUD::setValidation(ProductRequest::class);
         CRUD::field('category_id')->type('select')->model('App\Models\Category')->attribute('name');
         CRUD::field('name');
+        CRUD::field('image')->type('image');
         CRUD::field('color');
         CRUD::field('size');
         CRUD::field('price');
